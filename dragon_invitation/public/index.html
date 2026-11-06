@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10090d">
+  <title>Dragon Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="embers" id="embers"></div>
+  <main id="loginView" class="login-shell">
+    <section class="login-card">
+      <div class="sigil">竜</div>
+      <p class="eyebrow">A MEMORY WORTH KEEPING</p>
+      <h1>DRAGON<br><span>INVITATION</span></h1>
+      <p class="muted">Cánh cổng dẫn đến một kỷ niệm đặc biệt</p>
+      <form id="loginForm">
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" name="username" autocomplete="username" required maxlength="32" placeholder="Nhập tên tài khoản">
+        <label for="password">Mật khẩu</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Nhập mật khẩu">
+        <button class="primary-btn" type="submit">BƯỚC VÀO <span>↗</span></button>
+        <p id="loginError" class="error" role="alert"></p>
+      </form>
+      <div class="login-foot">PRIVATE INVITATION · YEARBOOK</div>
+    </section>
+  </main>
+
+  <main id="adminView" class="admin-shell hidden">
+    <header class="topbar">
+      <div><span class="mini-mark">竜</span><strong>DRAGON INVITATION</strong><small>ADMIN CONTROL</small></div>
+      <button class="ghost-btn logout">Đăng xuất</button>
+    </header>
+    <section class="admin-heading">
+      <p class="eyebrow">COMMANDER'S ROOM</p>
+      <h1>Bảng điều khiển</h1>
+      <p class="muted">Quản lý khách mời và nội dung thư mời của bạn.</p>
+    </section>
+    <div class="admin-grid">
+      <section class="panel">
+        <h2><span>01</span> Tạo tài khoản khách mời</h2>
+        <form id="createUserForm" class="stack-form">
+          <label>Tên đăng nhập<input name="username" required minlength="3" maxlength="32" placeholder="vd: minh_anh"></label>
+          <label>Mật khẩu tạm<input name="password" required minlength="10" maxlength="128" placeholder="Ít nhất 10 ký tự"></label>
+          <label>Tên hiển thị trên thư mời<input name="displayName" required maxlength="80" placeholder="Tên người được mời"></label>
+          <button class="primary-btn" type="submit">＋ TẠO TÀI KHOẢN</button>
+          <p class="hint">Hãy gửi riêng tên đăng nhập và mật khẩu cho từng người.</p>
+          <p id="createMessage" class="notice" role="status"></p>
+        </form>
+      </section>
+      <section class="panel">
+        <h2><span>02</span> Danh sách tài khoản</h2>
+        <div id="userList" class="user-list"><p class="muted">Đang tải...</p></div>
+      </section>
+      <section class="panel editor-panel">
+        <h2><span>03</span> Chỉnh sửa thư mời</h2>
+        <form id="settingsForm" class="stack-form">
+          <label>Tiêu đề<input name="title" maxlength="120"></label>
+          <label>Dòng giới thiệu<input name="subtitle" maxlength="300"></label>
+          <label>Nội dung thư<textarea name="body" rows="4" maxlength="1200"></textarea></label>
+          <label>Ngày tổ chức<input name="date" maxlength="200"></label>
+          <label>Địa điểm<input name="location" maxlength="200"></label>
+          <label>Lời kết<input name="closing" maxlength="300"></label>
+          <button class="primary-btn" type="submit">LƯU NỘI DUNG</button>
+          <p id="settingsMessage" class="notice" role="status"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <main id="guestView" class="guest-shell hidden">
+    <header class="guest-top"><span>✦ A SPECIAL SUMMONS ✦</span><button class="ghost-btn logout">Đăng xuất</button></header>
+    <section id="intro" class="intro-stage">
+      <div class="moon"></div>
+      <div class="dragon-wrap">
+        <div class="dragon-aura"></div>
+        <svg class="dragon" viewBox="0 0 620 440" role="img" aria-label="Rồng anime fantasy">
+          <defs>
+            <linearGradient id="scale" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb15d"/><stop offset=".45" stop-color="#d62d36"/><stop offset="1" stop-color="#50101e"/></linearGradient>
+            <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9b182d"/><stop offset="1" stop-color="#260b1b"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <path d="M270 220 Q80 30 45 85 Q125 105 138 230 Q68 190 25 215 Q95 245 165 315 Q205 280 270 285Z" fill="url(#wing)" stroke="#ef674a" stroke-width="5"/>
+          <path d="M350 215 Q515 5 580 75 Q495 105 492 230 Q555 180 600 215 Q535 260 455 320 Q400 275 350 285Z" fill="url(#wing)" stroke="#ef674a" stroke-width="5"/>
+          <path d="M180 285 Q125 355 185 385 L265 345 Q315 385 370 345 L440 390 Q455 335 395 280Z" fill="#71172b" stroke="#ff9a56" stroke-width="5"/>
+          <path d="M205 220 Q165 160 220 105 Q250 75 305 95 Q360 65 400 125 Q435 175 390 245 Q345 300 265 275Z" fill="url(#scale)" stroke="#ffb36b" stroke-width="6"/>
+          <path d="M235 115 Q205 40 180 30 Q205 105 245 130 M350 105 Q390 35 425 35 Q395 105 365 130" fill="#f1b45f" stroke="#8c1b2d" stroke-width="7"/>
+          <path d="M220 175 Q170 145 145 165 Q175 205 225 205 M385 175 Q435 145 460 165 Q430 205 380 205" fill="#d9433e" stroke="#ffbd75" stroke-width="5"/>
+          <path d="M245 175 L285 188 L260 198Z M345 188 L385 175 L370 198Z" fill="#ffeaa0" filter="url(#glow)"/>
+          <path d="M275 230 Q310 250 345 230 Q320 275 285 250Z" fill="#3b0918"/>
+          <path d="M285 252 Q310 270 335 252" fill="none" stroke="#ffb15d" stroke-width="4"/>
+          <path d="M260 280 L245 330 L280 310 M350 280 L375 330 L340 310" fill="#a82532" stroke="#ff9a56" stroke-width="5"/>
+          <path d="M295 270 Q310 310 325 270" fill="none" stroke="#ffcf83" stroke-width="4"/>
+        </svg>
+      </div>
+      <p class="eyebrow">THE DRAGON HAS AWAKENED</p>
+      <h1>MỘT LỜI MỜI<br><span>ĐANG CHỜ BẠN</span></h1>
+      <p class="intro-copy">Chạm vào ngọn lửa để mở lời triệu hồi.</p>
+      <button id="igniteBtn" class="primary-btn ignite">ĐÁNH THỨC RỒNG LỬA <span>✦</span></button>
+    </section>
+    <div id="fireFlash" class="fire-flash"></div>
+    <section id="letter" class="letter hidden">
+      <div class="letter-frame">
+        <p class="eyebrow">✦ A MESSAGE FOR YOU ✦</p>
+        <p class="recipient-label">LỜI TRIỆU TẬP DÀNH RIÊNG CHO</p>
+        <h2 id="guestName">Tên khách mời</h2>
+        <div class="ornament">━━━━━━ ✧ ━━━━━━</div>
+        <h1 id="inviteTitle">THƯ MỜI KỶ YẾU</h1>
+        <p id="inviteSubtitle" class="letter-subtitle"></p>
+        <p id="inviteBody" class="letter-body"></p>
+        <div class="details"><p id="inviteDate"></p><p id="inviteLocation"></p></div>
+        <p id="inviteClosing" class="closing"></p>
+        <div class="seal">✦</div>
+      </div>
+      <button class="ghost-btn logout bottom-logout">Đăng xuất</button>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
