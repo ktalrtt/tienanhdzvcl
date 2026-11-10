@@ -12,6 +12,10 @@ const CONFIG = {
   eventPlace: "Cùng nhau chọn nhé",
   buttonText: "Chấp nhận lời mời",
   rsvpEmail: "khongtienanhlrtt@gmail.com",
+  // Điền 3 thông tin EmailJS sau khi tạo tài khoản và mẫu email.
+  emailjsPublicKey: "6iJeEr2OMz7yInJJw",
+  emailjsServiceId: "service_0yes7lb",
+  emailjsTemplateId: "template_j6s5139",
   footerNote: "Hẹn gặp bạn trong ngày thật vui!",
   coverImage: "assets/cover.svg",
   backgroundImage: "",
