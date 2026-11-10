@@ -19,6 +19,8 @@ const CONFIG = {
   footerNote: "Hẹn gặp bạn trong ngày thật vui!",
   coverImage: "assets/cover.svg",
   backgroundImage: "",
+  lobbyBackgroundImage: "",
+  lobbyBackgroundOpacity: 35,
   fontFamily: "DM Sans",
   gallery: [
     { image: "assets/memory-1.svg", caption: "the little things" },

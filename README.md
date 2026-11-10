@@ -55,3 +55,12 @@ Trong bảng PRIVATE EDITOR có thể chỉnh tiêu đề trang, nội dung màn
 6. Khi khách bấm Đồng ý, website sẽ gửi email thông báo tự động đến địa chỉ người nhận đã cấu hình trong EmailJS template. Khách không cần mở ứng dụng email hoặc tự bấm Gửi.
 
 **Lưu ý:** EmailJS cần được thiết lập và xác minh trước. Không đưa Private Key/secret key vào website; chỉ dùng Public Key ở trình duyệt. Hãy giới hạn domain được phép gửi trong EmailJS và đặt giới hạn gửi để tránh bị lạm dụng.
+
+
+## Ảnh nền sảnh chính và độ trong suốt
+- Đăng nhập bằng tên quản trị `Khổng Tiến Anh đẹp trai` để mở bảng chỉnh sửa.
+- Chọn mục **Ảnh nền sảnh chính** để tải ảnh riêng cho khu vực lời mời chính (không thay ảnh nền toàn trang hoặc ảnh bìa).
+- Kéo thanh **Độ trong suốt ảnh nền sảnh chính** từ 0% đến 100%; ảnh xem trước và phần trăm thay đổi ngay khi kéo.
+- Chọn **Xóa ảnh nền sảnh chính** nếu muốn bỏ ảnh đang dùng.
+- Bấm **Lưu thay đổi trên máy này** để lưu trong trình duyệt hiện tại. Để cập nhật cho khách khác, bấm **Tải config.js để cập nhật GitHub** rồi thay file `config.js` trên GitHub như hướng dẫn phía trên.
+- Cấu hình mới dùng hai trường `lobbyBackgroundImage` và `lobbyBackgroundOpacity`; các thiết lập ảnh nền toàn trang cũ vẫn được giữ riêng.

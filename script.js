@@ -6,6 +6,7 @@ const DB_KEY = "site-config";
 const ACCOUNT_KEY = "remembered-guest-name";
 let currentConfig = { ...CONFIG };
 let currentGuestName = "";
+let lobbyPreviewObjectUrl = "";
 function openConfigDB() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, 1);
@@ -95,6 +96,10 @@ function applyConfig() {
   $("rsvpLink").innerHTML = `${escapeHtml(currentConfig.buttonText || "Chấp nhận lời mời")} <span>↗</span>`;
   document.documentElement.style.setProperty("--site-font", `"${currentConfig.fontFamily || "DM Sans"}", sans-serif`);
   document.body.style.backgroundImage = currentConfig.backgroundImage ? `linear-gradient(rgba(251,247,243,.78),rgba(251,247,243,.78)),url("${currentConfig.backgroundImage}")` : "";
+  const lobbyImage = currentConfig.lobbyBackgroundImage || "";
+  const lobbyOpacity = Math.max(0, Math.min(100, Number(currentConfig.lobbyBackgroundOpacity ?? 35))) / 100;
+  document.documentElement.style.setProperty("--lobby-bg-image", lobbyImage ? `url("${lobbyImage}")` : "none");
+  document.documentElement.style.setProperty("--lobby-bg-opacity", String(lobbyOpacity));
   $("gallery").innerHTML = (currentConfig.gallery || []).map((item, i) => `<figure class="gallery-item"><img src="${item.image}" alt="Khoảnh khắc kỷ yếu ${i + 1}"><figcaption><span>0${i + 1}</span>${escapeHtml(item.caption)}</figcaption></figure>`).join("");
 }
 function escapeHtml(value) { return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
@@ -129,6 +134,9 @@ function fillEditor() {
   $("editPlace").value = currentConfig.eventPlace || "";
   $("editButtonText").value = currentConfig.buttonText || "Chấp nhận lời mời";
   $("editFont").value = currentConfig.fontFamily || "DM Sans";
+  $("editLobbyOpacity").value = Math.max(0, Math.min(100, Number(currentConfig.lobbyBackgroundOpacity ?? 35)));
+  $("lobbyOpacityValue").value = `${$("editLobbyOpacity").value}%`;
+  $("clearLobbyBackground").checked = false;
 }
 async function readImage(file) {
   if (!file) return null;
@@ -213,6 +221,7 @@ $("adminForm").addEventListener("submit", async (event) => {
   try {
     const cover = await readImage($("editCover").files[0]);
     const background = await readImage($("editBackground").files[0]);
+    const lobbyBackground = await readImage($("editLobbyBackground").files[0]);
     const galleryUploads = await Promise.all([1, 2, 3].map(i => readImage($(`editGallery${i}`).files[0])));
     currentConfig = { ...currentConfig,
       siteTitle: $("editSiteTitle").value.trim(), gateButtonText: $("editGateButton").value.trim(),
@@ -232,6 +241,9 @@ $("adminForm").addEventListener("submit", async (event) => {
       eventPlace: $("editPlace").value.trim(), buttonText: $("editButtonText").value.trim(),
       fontFamily: $("editFont").value,
       ...(cover ? { coverImage: cover } : {}), ...(background ? { backgroundImage: background } : {}),
+      ...(lobbyBackground ? { lobbyBackgroundImage: lobbyBackground } : {}),
+      ...( $("clearLobbyBackground").checked ? { lobbyBackgroundImage: "" } : {}),
+      lobbyBackgroundOpacity: Number($("editLobbyOpacity").value),
       gallery: (currentConfig.gallery || []).map((item, index) => ({
         ...item, caption: $(`editCaption${index + 1}`).value.trim(),
         ...(galleryUploads[index] ? { image: galleryUploads[index] } : {})
@@ -239,7 +251,8 @@ $("adminForm").addEventListener("submit", async (event) => {
     };
     await saveConfigToDB(currentConfig);
     applyConfig();
-    ["editCover", "editBackground", "editGallery1", "editGallery2", "editGallery3"].forEach(id => { $(id).value = ""; });
+    ["editCover", "editBackground", "editLobbyBackground", "editGallery1", "editGallery2", "editGallery3"].forEach(id => { $(id).value = ""; });
+    if (lobbyPreviewObjectUrl) { URL.revokeObjectURL(lobbyPreviewObjectUrl); lobbyPreviewObjectUrl = ""; }
     alert("Đã lưu thay đổi trên trình duyệt này!");
   } catch (error) {
     console.error(error);
@@ -249,6 +262,28 @@ $("adminForm").addEventListener("submit", async (event) => {
   }
 });
 $("exportConfig").addEventListener("click", downloadConfig);
+
+// Cập nhật con số và xem trước độ trong suốt ngay khi admin kéo thanh trượt.
+function updateLobbyBackgroundPreview() {
+  const value = Math.max(0, Math.min(100, Number($("editLobbyOpacity").value)));
+  $("lobbyOpacityValue").value = `${value}%`;
+  document.documentElement.style.setProperty("--lobby-bg-opacity", String(value / 100));
+  if ($("clearLobbyBackground").checked) {
+    document.documentElement.style.setProperty("--lobby-bg-image", "none");
+  } else if (lobbyPreviewObjectUrl) {
+    document.documentElement.style.setProperty("--lobby-bg-image", `url("${lobbyPreviewObjectUrl}")`);
+  } else {
+    document.documentElement.style.setProperty("--lobby-bg-image", currentConfig.lobbyBackgroundImage ? `url("${currentConfig.lobbyBackgroundImage}")` : "none");
+  }
+}
+$("editLobbyOpacity").addEventListener("input", updateLobbyBackgroundPreview);
+$("editLobbyBackground").addEventListener("change", event => {
+  if (lobbyPreviewObjectUrl) URL.revokeObjectURL(lobbyPreviewObjectUrl);
+  lobbyPreviewObjectUrl = event.target.files[0] ? URL.createObjectURL(event.target.files[0]) : "";
+  $("clearLobbyBackground").checked = false;
+  updateLobbyBackgroundPreview();
+});
+$("clearLobbyBackground").addEventListener("change", updateLobbyBackgroundPreview);
 
 
 // Hộp xác nhận tham gia và hiệu ứng âm thanh được tạo trực tiếp bằng Web Audio.
