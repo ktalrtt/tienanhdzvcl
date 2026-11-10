@@ -934,3 +934,44 @@ html[data-performance="high"] .world-stage:before{animation:none!important}
 .room-backdrop{pointer-events:none!important;}
 .world-stage.is-dragging .room-portal{pointer-events:none!important;}
 @media(max-width:760px){.room-portal{width:94px!important;height:126px!important}.room-galaxy{width:190px!important;height:190px!important}.portal-info span,.portal-info em{display:none!important}.room-logo b{font-size:12px!important}}
+
+/* === VŨ TRỤ KỶ NIỆM: thiên hà 2D, không gian sâu === */
+.world-lobby{background:#03030b!important;color:#f7edff!important;position:relative;overflow:hidden}
+.world-hud{position:relative;z-index:20}.world-heading .eyebrow{color:#c69aff}.world-heading h1{color:#fff;text-shadow:0 0 24px #a45cff88}.world-heading>p:last-child{color:#b9a9d2}
+.world-controls button{background:#17112b!important;border:1px solid #7652a6!important;color:#eee!important;border-radius:50px}
+.world-stage.galaxy-stage{height: min(78vh,820px);min-height:570px;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 50% 48%,#17102f 0,#090817 38%,#03030b 78%)!important;perspective:none!important;touch-action:pan-y}
+.world-stage.galaxy-stage:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 25%,#020208aa 100%);z-index:3;pointer-events:none}
+.world-stage.galaxy-stage .cosmic-stars{position:absolute;inset:0;z-index:0}
+.cosmic-stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;opacity:var(--o);box-shadow:0 0 7px 2px #bdaaff;animation:twinkle var(--d) ease-in-out infinite alternate}
+@keyframes twinkle{to{opacity:.15;transform:scale(.5)}}
+.cosmic-nebula{position:absolute;width:65%;height:60%;filter:blur(45px);opacity:.27;border-radius:50%;pointer-events:none}
+.nebula-a{left:-12%;top:5%;background:radial-gradient(ellipse,#7438b8,transparent 68%);transform:rotate(-25deg)}
+.nebula-b{right:-12%;bottom:0;background:radial-gradient(ellipse,#126bba,transparent 68%);transform:rotate(25deg)}
+.memory-galaxy{position:absolute;left:50%;top:49%;width:min(48vw,530px);height:min(48vw,530px);min-width:330px;min-height:330px;transform:translate(-50%,-50%) scale(var(--zoom,1));z-index:2;filter:drop-shadow(0 0 35px #854dff55);transition:transform .25s}
+.galaxy-glow{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,#fff9 0,#bca5ff55 8%,#743dce33 24%,transparent 67%);filter:blur(17px)}
+.galaxy-nucleus{position:absolute;left:50%;top:50%;width:14%;height:14%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff 0,#fff 16%,#e5d9ff 34%,#a879ff 60%,transparent 75%);box-shadow:0 0 22px 10px #fff8,0 0 75px 30px #a76bff99}
+.spiral-arm{position:absolute;inset:9%;border:18px solid transparent;border-radius:50%;filter:blur(5px);opacity:.85}
+.arm-a{border-top-color:#b88bff;border-left-color:#7347ca;transform:rotate(28deg) scaleX(1.25);box-shadow:0 0 24px #9a68ff}
+.arm-b{inset:17%;border-right-color:#65b9ff;border-bottom-color:#8a5bdb;transform:rotate(-32deg) scaleX(1.3);opacity:.65}
+.arm-c{inset:3%;border-left-color:#df9bff;border-bottom-color:#477ed8;transform:rotate(58deg) scaleX(.72);opacity:.5}
+.particle-heart{position:absolute;left:50%;top:26%;width:30%;height:27%;transform:translate(-50%,-50%);z-index:5;filter:drop-shadow(0 0 9px #ff9bdc)}
+.particle-heart i{position:absolute;width:2.5px;height:2.5px;border-radius:50%;background:#ffeaff;opacity:var(--op);box-shadow:0 0 7px 2px #ff8bdc;animation:heartPulse var(--tw) ease-in-out infinite alternate}
+@keyframes heartPulse{to{opacity:.25;transform:scale(.45)}}
+.galaxy-label{position:absolute;top:79%;width:100%;text-align:center;color:#cbb6f4;font:600 9px/1 Arial;letter-spacing:.32em;text-shadow:0 0 12px #9b65ff}
+.constellation-layer{position:absolute;inset:0;z-index:1;pointer-events:none}
+.constellation{position:absolute;inset:0;color:#c9dfff}
+.constellation i{position:absolute;width:5px;height:5px;border-radius:50%;background:#e8f4ff;box-shadow:0 0 12px 3px #8dbdff}
+.constellation b{position:absolute;height:1px;transform-origin:left center;background:linear-gradient(90deg,#b8cfffaa,#8f9dff22);box-shadow:0 0 5px #9dbdff}
+.constellation small{position:absolute;left:50%;top:50%;font:8px Arial;letter-spacing:.2em;color:#9c9bc9;opacity:.7}
+.memory-photo{position:absolute;z-index:7;width:clamp(75px,10vw,128px);padding:5px 5px 22px;background:linear-gradient(145deg,#fff,#dcd5f0);border:1px solid #ffffffaa;box-shadow:0 8px 30px #0009,0 0 20px #a97bff55;transform:translate(-50%,-50%) rotate(var(--tilt,-5deg));text-decoration:none;color:#34264a;animation:photoFloat 6s ease-in-out infinite}
+.memory-photo:nth-of-type(even){--tilt:5deg;animation-delay:-2s}.memory-photo:nth-of-type(3n){--tilt:-2deg;animation-delay:-4s}
+.memory-photo img{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#211a38}
+.memory-placeholder{display:grid;place-items:center;aspect-ratio:1;background:linear-gradient(135deg,#34215a,#142c55);color:#e9d9ff;font-size:30px}
+.memory-photo-caption{position:absolute;bottom:5px;left:4px;right:4px;text-align:center;font:italic 10px Georgia;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.memory-photo:hover{z-index:12;transform:translate(-50%,-50%) scale(1.15) rotate(0);box-shadow:0 0 28px #c79cffaa}
+@keyframes photoFloat{0%,100%{translate:0 0}50%{translate:0 -13px}}
+.galaxy-hint{position:absolute;z-index:8;bottom:22px;left:0;right:0;text-align:center;color:#9c8bbd;font:9px Arial;letter-spacing:.22em}
+.world-stage.galaxy-stage .room-floor,.world-stage.galaxy-stage .room-ceiling,.world-stage.galaxy-stage .room-portal,.world-stage.galaxy-stage .room-vignette{display:none!important}
+.world-bottom{position:relative;z-index:10;color:#b6a5d3}.world-bottom span i{background:#a77bff;box-shadow:0 0 10px #a77bff}
+.open-invitation{position:relative;z-index:10;background:#211338!important;color:#fff!important;border:1px solid #8c62bf!important}
+@media(max-width:700px){.world-stage.galaxy-stage{min-height:560px;height:70vh}.memory-galaxy{width:85vw;height:85vw;min-width:280px;min-height:280px}.memory-photo{width:76px}.constellation small{font-size:6px}}
